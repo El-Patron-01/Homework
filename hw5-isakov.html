@@ -1,0 +1,117 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Есть массив cо строк, взять только те у которых есть символы g и a в подстроке, порядок не важен
+        const arrayOfStrings = ['qe', 'gdag', 'gga', 'gtrxa', 'hghh', 'ga'];
+        let result = [];
+        for (let i = 0, j =0; i < arrayOfStrings.length; i++) {
+        	if (arrayOfStrings[i].includes('g' && 'a')) {
+        		result[j] = arrayOfStrings[i];
+        		j++
+        	}
+        	console.log (result);
+        }
+
+
+        // 2) Через цикл создать числа фибоначи! То есть на выходе получаем массив с чисел фибоначи, 15 чисел не больше. 
+        // можно попробовать через рекурсию как эдвансед.
+       let fibonacci = [0,1];
+       for (let i = 2; i < 15; i++) {
+       		fibonacci[i] = fibonacci[i-1] + fibonacci[i-2];
+       }
+       console.log(fibonacci)
+
+
+        function fib(num){
+		  num = num || [0];
+		  if (num.length == 15){
+		    return num
+		  }else if (num.length < 2){
+		     num.push(num.length);
+		     return fib(num)
+		  } 
+		  num.push(num[num.length-1] + num[num.length-2]);
+		  return fib(num)
+		}
+		console.log(fib());
+
+        // 3) Через рекурсию сумируем все числа в массиве
+        const arr = [4, 1, 65, 2, 6, 7, 2, 1, 6];
+        		function sumArr (arr) {
+        		let elem = arr.pop();
+        		if (arr.length) {
+        			elem += sumArr(arr);
+        		}
+        		return elem;
+        		
+        	}
+        	console.log(sumArr(arr))
+
+        // 4) Написать функцию которая принимает 2 параметра from и to, и будет считать сумму  всех нечетных чисел и потом среднее арифметическое от этой суммы!
+        // Задачу решить 2-мя способами! Цыклами и рекурсией!
+        function sumOfNumbers(from, to) {
+        	let sum = 0;
+        	let counter = 0;
+        	let avg;
+        	for (let i = from; i < to; i++) {
+        		if (i % 2 !== 0) {
+        			sum += i;
+        			counter++;
+        		}
+        	}
+        	avg = sum / counter;
+        	return [sum, avg]
+        }
+        console.log(sumOfNumbers(2, 8));
+
+    let counter = 0;
+	function sumOfNumbers(from, to) {
+		if (from === to) {
+			if (from % 2 !== 0) {
+				counter++;
+			 return from;
+			}
+			return 0;
+		}
+		if (from % 2 !== 0) {
+			counter++;
+			return from += sumOfNumbers(from + 1,to)
+		} else return sumOfNumbers(from + 1, to);
+	}
+	console.log (sumOfNumbers (2, 10), counter)
+
+        // 5) Написать поясниние как будет выполнятся в коллстэке следующий код!
+        function a() {
+            return b();
+        }
+
+        function b() {
+            return c();
+        }
+
+        function c() {
+            return d();
+        }
+        function d() {
+            return 'HELLO';
+        }
+        a();
+
+        // 1) функция a вызывает функцию b, которая объявлена ниже, но за счет всплытия уже известна.
+        // 2) функция b вызывает функцию c по такой же аналогии.
+        // 3) функция с вызывает функцию d по такой же аналогии.
+        // 4) функция d возвращает строку 'HELLO'.
+        // 5) строка 'HELLO' идет по стеку вверх (то есть в обратном порядке).
+        // 6) в итоге выводится строка 'HELLO'.
+
+    </script>
+</body>
+
+</html>

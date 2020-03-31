@@ -1,0 +1,121 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT HW3</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Написать функцию которая принимает строку и подстроку и нужно найти количество вхождений!!!
+        function searchSubstr(string, substring) {
+            let counter = 0;
+            for (let i = 0; i < string.length; i++) {
+                if (string.slice(i, i + substring.length) === substring) {
+                counter++
+                }
+            }
+            
+            return counter;
+        }
+        searchSubstr('4526214531235345123', '123'); // результат 2
+        searchSubstr('4526214531235345123', '45'); // результат 3
+
+
+        // 2) Написать функцию которая принимает массив и ищет макс число, дальше найти мин число которое имеет меньше индекс чем макс.
+        // Можно индекс оф использовать.
+        function findMinBeforeMax(array) {
+            let maximal = Math.max(...array);
+            let minimal = Math.min(...array.slice(0, array.indexOf(maximal)));
+            let answer = maximal + ", " + minimal;
+            return answer;
+        }
+        findMinBeforeMax([35,5, 2, 324, 2, 0, -1, 35]); // ответ 324 -макс, 2 - мин ибо индекс меньше
+
+        //3) Есть массив с массивов нужно подсчитать сумму елементов которые лежат
+        // на главной диагонеле c помощью одного цикла и двух. то есть 1 + 5 + 9. 
+        // Подсчитать произведение побочной диагонали  3*5*5 также.
+        const matrix = [ 
+            [1,2,3], 
+            [4,5,6], 
+            [7,8,9] ];
+            let diagonal = 0;
+            for (let i = 0; i < matrix.length; i++) {
+                if (matrix[i][i]) {
+                    diagonal += matrix[i][i];
+                }
+            }
+
+            const matrix = [ 
+            [1,2,3], 
+            [4,5,6], 
+            [7,8,9] ];
+            let diagonal = 0;
+            for (let i = 0; i < matrix.length; i++) {
+                for (let j = 0; j < matrix.length; j++) {
+                    if (i == j) {
+                        diagonal += matrix[i][j];
+                    }
+                }
+            }
+           
+           const matrix = [ 
+            [1,2,3], 
+            [4,5,6], 
+            [7,8,9] ];
+            let diagonal = 1;
+            for (let i = 0; i < matrix.length; i++) {
+                if (matrix[i]) {
+                    diagonal *= matrix[i][matrix.length - i - 1]
+                }
+            }
+
+            const matrix = [ 
+            [1,2,3], 
+            [4,5,6], 
+            [7,8,9] ];
+            let diagonal = 1;
+            for (let i = 0; i < matrix.length; i++) {
+                for (let j = 0; j < matrix.length; j++) {
+                    if (i == j) {
+                        diagonal *= matrix[i][matrix.length - j - 1];
+                    }
+                }
+            }
+
+        // 4) Есть массив. Написать функцию которая подсчитает произведение все елементов и вернет результат
+    
+        function multipleOfFive(array) {
+            let multiply = 1
+            for (let i = 0; i < array.length; i++) {
+                if (array[i]) {
+                    multiply *= array[i];
+                }
+            }
+            return multiply
+        }
+        multipleOfFive([20, 5, 3, 23, 15, 8, 10, 11])
+
+
+        // Advanced 
+        //  Есть бусы, каждая из бусинок это рандом из тру или фолс и количество бусинок не известно нужно подсчитать количество бусинок.
+        // Алгоритм расписать.
+        let beads = 'truefalsefalsetruetruetrue';
+        let trueStr = 'true';
+        let falseStr = 'false';
+        let counter = 0;
+        for (let i = 0; i < beads.length; i++) {
+                if (beads.slice(i, i + trueStr.length) === "true") {
+                    counter++;
+                } if  (beads.slice(i, i + falseStr.length) === "false") {
+                    counter++;
+                }
+                console.log(counter);
+        }
+
+
+    </script>
+</body>
+
+</html>
