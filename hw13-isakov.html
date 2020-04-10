@@ -1,0 +1,142 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT HW3</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Есть участок кода! обернуть в try catch нужный участок кода и выбросить ошибку если getResult возвращает undefined
+        function getResult() {
+            try {
+            	var obj = {
+                name: 'Sergei',
+                lastName: 'Shakhov'
+                }
+                return obj;
+            } catch (e) {
+            	console.log('getResult error', e)
+            }
+        }
+        const a = getResult();
+        console.log('RESULT', a);
+
+        //2) исправить код чтобы консоль логи показывали от 0 до 10, и написать почему сейчас выводит десять десяток!!
+        for (var i = 0; i < 10; i++) {
+            setTimeout(() => console.log(i), 0);
+        }
+        В данном случае проблема в том, что setTimeout - это асинхронный код и он выполняется всегда после синхронного, плюс var 
+        это глобальная переменная, а не блочная. Следовательно сначала выполнится цикл и переменная i будет равна 10 и затем начнут 
+        выполняться все setTimeout.
+
+        Решить эту проблему можно несколькими способами, например заменить var на let или передать переменную в setTimeOut вот так:
+        for (var i = 0; i < 10; i++) {
+            setTimeout((x) => console.log(x), 0, i);
+        }
+
+        // 3) Есть код!! В какой последовательности выполнится!
+        function getDatas() {
+            return [
+                {
+                    name: "Vasia"
+                },
+                {
+                    name: "Boria"
+                },
+                {
+                    name: "Misha"
+                },
+            ]
+        }
+        const res = getDatas();
+        Порядок выполнения:
+        1) console.log('RES', res);
+        5) setTimeout(() => console.log('settimeout1'), 100);
+        4) setTimeout( () => console.log('settimeout'), 10);
+        2) console.log('One');
+        3) console.log('two');
+        
+        //4) Что выведет alert в setTimeOut
+        setTimeout(function () {
+            alert(i);
+        }, 100);
+
+        for (var i = 0; i < 1000000; i++) {
+        }
+        Alert выведет 1000000 потому что что цикл это синхронный код и он выполнится первым. Когда он выполнится в переменной i
+        будет храниться число 1000000.
+
+        // 5) Есть функция funct! Сделать из нее функцию конструктор которая создает обьект со свойствами name lastName
+        function funct(name, lastName) {
+            this.name = name;
+            this.lastName = lastName;
+        }
+       
+        // 6) Создать функцию конструктор, которая принимает обьект и берет только lastName и position и создает обьект с этих свойств
+        function factory(obj) {
+            this.lastName = obj.lastName;
+            this.position = obj.position;
+        }
+
+        new factory({ name: 'Sergei', lastName: 'Shakhov', height: 188, position: 'Software developer' });
+
+
+        // 7) Сделайте так чтобы выболнялось settimeout1 RES RES1
+        setTimeout(() => console.log('settimeout1'), 100);
+        console.log('RES', res);
+        console.log('RES1', res);
+
+        let prom = new Promise ((res, rej) => {
+            setTimeout(() => res('settimeout1'), 100);
+        });
+        prom.then((value) => {
+            console.log(value);
+            console.log('RES', value);
+            console.log('RES1', value);
+        });
+
+
+        // 8) Есть код! Почему строчка с комментарием покажет {misha: NADUSHA}! Сделать так чтобы a.getObject(); вернул {misha: 'misha'}
+        // то есть должны быть независимые обьекты!!
+        function newFactory(obj) {
+            var object = obj;
+
+            return {
+                getObject: function() {
+                    return object;
+                }
+            };
+        }
+        var a = newFactory({misha: 'misha'});
+        var k = a.getObject();
+        k.misha = 'NADUSHA'; 
+        a.getObject(); // КОММЕНТАРИЙ!!! покажет NADUSHA 
+
+        Учитывая, что объект это ссылочный тип данных, перезаписывание его в другую переменную его не копирует, а лишь копирует ссылку
+        на него. Соответственно, любые изменения будут осуществляться в одном и том же объекте. 
+        Покажет {misha: NADUSHA} за счет замыкания. Когда мы вызываем функцию "newFactory({misha: 'misha'})" и сохраняем ее в переменную
+        a, мы записываем объект {misha: 'misha'} в  переменную object. Далее мы записываем  в переменную k вывод функции, которая лежит в 
+        значении свойства getObject. Эта функция вызывает object. Так как в ней этой переменной нету, она идет выше и находит его в 
+        родительской фукнции благодаря замыканию. Далее мы передаем свойству misha значение 'NADUSHA'. И теперь, когда мы вызываем опять
+        функцию, которая лежит в getObject, она возвращает уже перезаписанное значение и в  итоге мы видим {misha: NADUSHA}.
+
+        А для того, чтобы результатом вывода был объект {misha: 'misha'} мы помещаем в return не сам объект, а его копию:
+
+        function newFactory(obj) {
+            var object = obj;
+
+            return {
+                getObject: function() {
+                    return Object.assign({}, object);
+                }
+            };
+        }
+
+        
+
+    </script>
+</body>
+
+</html>
