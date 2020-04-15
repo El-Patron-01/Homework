@@ -1,0 +1,96 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Есть промис! что за параметры принимает функция? Зачем они? как вернуть обьект {id: 10, name: 'Sergei'} и 
+        // потом принять его с помощью функции промиса then? Как вернуть ошибку в промисе и потом ее перехватить?
+
+        Первый параметр resolve - принимает какие-то данные в случае успешного выполнения промиса, а второй параметр 
+        reject - принимает ошибку.
+
+        const pr = new Promise(function (resolve, reject) {
+            setTimeout(() => resolve({id: 10, name: 'Sergei'}), 10)
+        })
+        pr.then(data => console.log(data));
+
+        const pr = new Promise(function (resolve, reject) {
+            setTimeout(() => reject('this is an error'), 10)
+        })
+        pr.catch(err => console.error(err));
+
+        //2) Есть код ! с помощью промисов написать таким образом чтобы выполнилось по порядку от одного до 5!
+        // На данный момент выполнятся setTimeout-ы вконце!!
+        setTimeout(()=> console.log('1'), 1300);
+        console.log('2')
+        console.log('3')
+        setTimeout(()=> console.log('4'), 300);
+        console.log('5');
+
+        let prom1 = new Promise ((res, rej) => {
+            setTimeout(()=> res('1'), 1300);
+        })
+        let prom2 = new Promise ((res, rej) => {
+            setTimeout(()=> res('4'), 300);
+        })
+        prom1.then(data => {
+            console.log(data);
+            console.log('2');
+            console.log('3');
+            return prom2;
+        }).then(data => {
+            console.log(data);
+            console.log('5');
+        })
+
+        //3) Есть код !  Нужно всего лишь написать комментарий что делает каждая из строчок!
+        const pr2 = new Promise(function (resolve, reject) { // создаем промис
+             resolve({id: 2})// эта функция ожидает успешного получения данных
+        });
+        pr2.then((data) => data)// возвращаем промис с объектом {id: 2}. Эта функция ждет, пока промис получит статус resolved и тогда срабатывает, а в  data записывается значение, полученное в resolve
+            .then((res) => { // выше мы вернули значение, полученное в resolve, а именно {id: 2} и теперь оно является аргументом этой функции
+                throw new Error('Something went wrong')// ловим ошибку
+            })
+            .catch((e) => console.log('ERROR', e) )// в случае если код выше поймал ошибку выводим в консоль 'ERROR' и саму ошибку.
+       
+        // 4) Использую Promise.all получить массив из промисов и после чего отсортировать тот что возвращает массив! 
+        const prom1 = new Promise(function (resolve, reject) {
+            resolve(10);
+        }) 
+        const prom2 = new Promise(function (resolve, reject) {
+            resolve({id: 3});
+        }) 
+        const prom3 = new Promise(function (resolve, reject) {
+            resolve([6, 2, 4, 6]);
+        }) 
+
+        let promArray = Promise.all([prom1, prom2, prom3]).then(data => {
+            data[2].sort((a,b) => a-b);
+            console.log(data);
+        })
+
+        // 5) Есть роуты!! С помощью fetch
+        // https://playwithpromise.herokuapp.com/api/order-review/last - вернет обьект с id такой
+        // после чего используя id делаем другой запрос
+        // https://playwithpromise.herokuapp.com/api/order-review/getid/{id} 
+        
+        fetch('https://playwithpromise.herokuapp.com/api/order-review/last', {
+            method: 'GET'
+        }).then(response => {
+            return response.json();
+        }).then(data => {
+            return fetch(`https://playwithpromise.herokuapp.com/api/order-review/getid/${data._id}`, {
+            method: 'GET'
+        })}).then(response => {
+            return response.json();
+        }).then(data => console.log(data));
+        
+    </script>
+</body>
+
+</html>
