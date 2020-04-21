@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+
+        //1) Есть код ! с помощью async await реализуем правильную последовательность!!
+        const first = async function consoleOrder () {
+            await setTimeout(()=> console.log('1'), 1300);
+        };
+        const fourth = async function consoleOrder1() {
+            await setTimeout(()=> console.log('4'), 300);
+        }
+        console.log('2')
+        console.log('3')
+        console.log('5')
+
+        // 2) Есть роуты!! Делаем через async await то что в предыдущей!только с небольшим усложнением
+        // Добавился третий роут. Результат второго запроса даст обьект в котором будет поле orderList.
+        // В поле orderList будет массив с обьектов, и в каждом обьекте будет поле productId.
+        // Использя  эти productId и 3-й роут, сделать Promise.all и получить массив с продуктов.
+        // https://playwithpromise.herokuapp.com/api/order-review/last - вернет обьект с id такой( 5d4762e02481a600174fb1ae )
+        // после чего используя id делаем другой запрос
+        // https://playwithpromise.herokuapp.com/api/order-review/getid/{id} 
+        // https://playwithpromise.herokuapp.com/api/order-system/product/{productId}
+
+
+        
+    </script>
+</body>
+
+</html>
