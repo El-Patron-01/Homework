@@ -10,25 +10,45 @@
 
 
         //1) Есть код ! с помощью async await реализуем правильную последовательность!!
-        const first = async function consoleOrder () {
-            await setTimeout(()=> console.log('1'), 1300);
-        };
-        const fourth = async function consoleOrder1() {
-            await setTimeout(()=> console.log('4'), 300);
+        async function x () {
+            const promise = new Promise ((res, rej) => {
+                setTimeout(()=> res(console.log('1'), 1300));
+            })
+            const promise1 = new Promise ((res, rej) => {
+                setTimeout(()=> res(console.log('4'), 300));
+            })
+            const first = await promise;
+            console.log(first)
+            console.log('2');
+            console.log('3');
+            const fourth = await promise1;
+            console.log(fourth);
+            console.log('5');
         }
-        console.log('2')
-        console.log('3')
-        console.log('5')
+
 
         // 2) Есть роуты!! Делаем через async await то что в предыдущей!только с небольшим усложнением
         // Добавился третий роут. Результат второго запроса даст обьект в котором будет поле orderList.
         // В поле orderList будет массив с обьектов, и в каждом обьекте будет поле productId.
-        // Использя  эти productId и 3-й роут, сделать Promise.all и получить массив с продуктов.
+        // Используя  эти productId и 3-й роут, сделать Promise.all и получить массив с продуктов.
         // https://playwithpromise.herokuapp.com/api/order-review/last - вернет обьект с id такой( 5d4762e02481a600174fb1ae )
         // после чего используя id делаем другой запрос
         // https://playwithpromise.herokuapp.com/api/order-review/getid/{id} 
         // https://playwithpromise.herokuapp.com/api/order-system/product/{productId}
 
+        async function routes () {
+            let res1 = await fetch ('https://playwithpromise.herokuapp.com/api/order-review/last');
+            res1 = await res1.json();
+            let res2 = await fetch (`https://playwithpromise.herokuapp.com/api/order-review/getid/${res1._id}`);
+            res2 = await res2.json();
+            firstId = res2.orderList[0].productId;
+            secId = res2.orderList[1].productId;
+            let pr1 = await fetch (`https://playwithpromise.herokuapp.com/api/order-system/product/${firstId}`);
+            pr1 = await pr1.json();
+            let pr2 = await fetch (`https://playwithpromise.herokuapp.com/api/order-system/product/${secId}`);
+            pr2 = await pr2.json();
+            res3 = Promise.all([pr1, pr2]).then(d => console.log(d));
+        }
 
         
     </script>

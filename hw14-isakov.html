@@ -79,7 +79,7 @@
         // после чего используя id делаем другой запрос
         // https://playwithpromise.herokuapp.com/api/order-review/getid/{id} 
         
-        fetch('https://playwithpromise.herokuapp.com/api/order-review/last', {
+        fetch ('https://playwithpromise.herokuapp.com/api/order-review/last', {
             method: 'GET'
         }).then(response => {
             return response.json();
