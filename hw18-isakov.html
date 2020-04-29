@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+        //1) Есть две функции конструктор! Нужно c помощью prototype сделать second родителем first!
+        function A(name) {
+            this.name = name;
+        }
+        function B(lastName) {
+            this.lastName = lastName;
+        }
+        const first = new A('Sergei');
+        const second = new B('Shakhov');
+        first.prototype = second;
+        
+        //2) Есть обьекты. Необходимо сделать vasia родителем для petia, а petia для boria.
+        // ТО есть вася отец все отцов 
+        const vasia = { m: 23};
+        const petia = { n: 2};
+        const boria = { q: 2};
+
+        boria.prototype = petia;
+        petia.prototype = vasia;
+
+        //3) Написать класс Product, который принимает три поля цена, название, количество. 
+        // Необходимо реализовать два метода, первый сравнивает два продукта и выводит строку
+        // в которой присутствует разница по цене и количеству. Второй метод принимает любое количество продуктов и возвращает общую цену.
+
+        class Product {
+            constructor(price, name, quantity) {
+                this.price = price;
+                this.name = name;
+                this.quantity = quantity;
+            };
+            static compareProduct (firstProduct, secondProduct) {
+                let priceCompare = Math.abs(firstProduct.price - secondProduct.price);
+                let quantityCompare = Math.abs(firstProduct.quantity - secondProduct.quantity);
+                return `Price difference is ${priceCompare}, quantity difference is ${quantityCompare}`
+            };
+            static commonPrice (...products) {
+                let newProducts = []
+                products.forEach(el => newProducts.push(el.price))
+                return newProducts.reduce((prev,curr) => {
+                    return prev + curr;
+                })
+            }
+        }
+
+
+        // 4) Необходимо написать класс, который принимает следующие поля
+        // name, lastName, age, quantity, salary, position, далее реализовываем методы на получение всех свойств.
+        // , пишем геттер, сеттер и что-там еще). 
+        
+        class Developers {
+            constructor (name, lastName, age, quantity, salary, position) {
+                this.name = name;
+                this.lastName = lastName;
+                this.age = age;
+                this.quantity = quantity;
+                this.salary = salary;
+                this.position = position;
+            }
+            get allValues () {
+                return [this.name, this.lastName, this.age, this.quantity, this.salary, this.position]
+            }
+            static allValues1 (obj) {
+                return Object.values(obj)
+            }
+        }
+        
+        // но если вы дочитали до этого момента то 4-е реализововать не нужно), а нужно сделать следующее.
+        //  встать со стула!....... делаем легенькую разминочку, и начинаем приседать ибо дз проверяться не будет). 20 раз достаточно). 
+        // и после этого скидываем мне дз.
+        
+    </script>
+</body>
+
+</html>
