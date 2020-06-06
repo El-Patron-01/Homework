@@ -1,6 +1,5 @@
 import { Controller, Param, Get, Inject } from "@nestjs/common";
 import { ProductService } from "./product.service";
-import { products } from "./const";
 
 
 @Controller('products')

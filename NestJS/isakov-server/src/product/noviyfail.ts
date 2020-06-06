@@ -1,1 +1,0 @@
-const vasia = [1,2]
