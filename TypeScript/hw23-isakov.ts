@@ -1,10 +1,10 @@
 class User implements IUserMethods {
     
-    constructor(public schoolName: string, public position: string, public salary: number) {
-        this.schoolName = schoolName;
-        this.position = position,
-            this.salary = salary;
-    }
+    constructor(
+        public schoolName: string, 
+        public position: string, 
+        public salary: number
+        ) {}
     public getSchoolName(): string {
         return this.schoolName;
     }
