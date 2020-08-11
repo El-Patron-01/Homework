@@ -1,0 +1,24 @@
+.GoodsListElement {
+    border-bottom: 0.5px solid black;
+    margin: 0 10px 0 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.GoodsListElement:hover {
+    cursor: pointer;
+}
+
+.GoodsListElement_Column {
+    text-align: left;
+    width: 8%;
+}
+.GoodsListElement_ColumnDescription{
+    width: 30%;
+}
+
+.GoodsListElement_Button{
+    width: 12%;
+}
